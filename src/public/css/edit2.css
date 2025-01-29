@@ -1,0 +1,71 @@
+
+.edit2__inner {
+    margin: 25% auto;
+    width: 50%;
+    border: none;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.edit2__content {
+    padding: 20px 10px;
+}
+
+.edit2-title {
+    font-size: 20px;
+    padding: 15px 0;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.edit2__form-weight {
+    padding: 7px;
+    border: 1px solid rgba(224, 223, 222, 1);
+    border-radius: 3px;
+    width: calc(100% - 10px * 2 - 24px);
+}
+
+.edit2__form-error {
+    list-style: none;
+    color: red;
+    font-size: 12px;
+}
+
+.edit2__form-error > li {
+    margin-top: 10px;
+}
+
+.edit2__form-group-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.edit2__form-return,
+.edit2__form-submit {
+    border-radius: 5px;
+    font-size: 16px;
+    width: 110px;
+}
+
+.edit2__form-return {
+    padding: 7px;
+    background-color: rgba(224, 223, 222, 1);
+    color: rgba(51, 51, 51, 1);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    box-sizing: border-box;
+    box-shadow: 0 0 3px rgba(224, 223, 222, 1);
+}
+
+.edit2__form-submit {
+    margin-left: 10px;
+    padding: 3px;
+    border: none;
+    color: rgba(255, 255, 255, 1);
+    background-image: linear-gradient(to right, rgba(163, 166, 225, 1), rgba(255, 171, 217, 1));
+    cursor: pointer;
+
+}
+
+

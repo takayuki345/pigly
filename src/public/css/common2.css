@@ -1,0 +1,16 @@
+html {
+    min-height: 100%;
+}
+
+body {
+    /* background-color: #F9F9F9; */
+    background-image: linear-gradient(135deg, rgba(163, 166, 225, 1), rgba(255, 171, 217, 1));    background-size: cover;
+    /* height: 100%; */
+}
+
+
+.main {
+    /* width: min(75%, 1080px); */
+    /* margin: 0 auto; */
+}
+
