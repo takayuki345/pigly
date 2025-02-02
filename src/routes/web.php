@@ -9,31 +9,24 @@ Route::get('/', function(){
 
 Route::middleware('auth')->group(function(){
 
-    // Route::get('/weight_logs', function () {
-    //     return view('index');
-    // });
     Route::get('/weight_logs', [WeightLogsController::class, 'index']);
 
     Route::get('/weight_logs/search', [WeightLogsController::class, 'search']);
 
-    Route::get('/weight_logs/1', function(){
-        return view('edit');
-    });
+    Route::post('/weight_logs/create', [WeightLogsController::class, 'store']);
 
-    Route::get('/weight_logs/goal_setting', function(){
-        return view('edit2');
-    });
+    Route::get('/weight_logs/goal_setting', [WeightLogsController::class, 'targetEdit']);
+
+    Route::post('/weight_logs/goal_setting', [WeightLogsController::class, 'targetUpdate']);
+
+    Route::get('/weight_logs/{weightLogId}', [WeightLogsController::class, 'edit']);
+
+    Route::post('/weight_logs/{weightLogId}/update', [WeightLogsController::class, 'update']);
+
+    Route::post('/weight_logs/{weightLogId}/delete', [WeightLogsController::class, 'destroy']);
 
     Route::get('/register/step2', function() {
         return view('register2');
     });
 });
-
-// Route::get('/register/step1', function() {
-//     return view('auth.register1');
-// });
-
-// Route::get('/login', function(){
-//     return view('auth.login');
-// });
 

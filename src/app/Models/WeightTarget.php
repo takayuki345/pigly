@@ -11,10 +11,12 @@ class WeightTarget extends Model
 
     protected $table = 'weight_target';
 
+    protected $fillable = ['target_weight'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    
+
 }

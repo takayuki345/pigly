@@ -14,7 +14,7 @@
     <header class="header">
         <ul class="header-item">
             <li class="header-list">
-                <a class="header-logo">PiGLy</a>
+                <a class="header-logo" href="/weight_logs">PiGLy</a>
             </li>
             <li class="header-list">
                 <div class="header-menus">

@@ -1,8 +1,4 @@
 .register1__inner {
-    /* margin: 25% auto; */
-    /* width: 40%;
-    min-width: 500px;
-    max-width: 800px; */
     width: 500px;
     border: none;
     background-color: rgba(255, 255, 255, 1);
@@ -91,5 +87,6 @@
 .register1__form-link>a:visited,
 .register1__form-link>a:active,
 .register1__form-link>a:hover {
-    color: rgba(44, 153, 255, 1);}
+    color: rgba(44, 153, 255, 1);
+}
 

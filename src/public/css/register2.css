@@ -1,8 +1,4 @@
 .register2__inner {
-    /* margin: 25% auto; */
-    /* width: 40%;
-    min-width: 500px;
-    max-width: 800px; */
     width: 500px;
     border: none;
     background-color: rgba(255, 255, 255, 1);
@@ -52,13 +48,10 @@
     border: 1px solid rgba(224, 223, 222, 1);
     border-radius: 3px;
     width: calc(100% - 7px * 2 - 20px);
-    /* width: calc(100% - 14px * 2); */
 }
 
 .register2__form-input + span {
     font-size: 12px;
-    /* background-color: red; */
-    /* display: inline-block; */
 }
 
 .register2__form-error {

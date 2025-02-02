@@ -1,8 +1,4 @@
 .login__inner {
-    /* margin: 25% auto; */
-    /* width: 40%;
-    min-width: 500px;
-    max-width: 800px; */
     width: 500px;
     border: none;
     background-color: rgba(255, 255, 255, 1);
@@ -80,7 +76,6 @@
 .login__form-link {
     margin: 20px;
     text-align: center;
-    /* color: rgba(44, 153, 255, 1); */
 }
 
 .login__form-link>a:link,

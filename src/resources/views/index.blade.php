@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-{{-- dd($weightInf['targetWeight']) --}}
 <div class="upper-container">
     <div class="upper-container__contents">
         <div class="upper-container__content">
@@ -57,13 +56,6 @@
                 <td class="lower-container__table-desc"><a href="/weight_logs/{{ $weightLog->id }}"><img src="../img/pencil.svg" alt=""></a></td>
             </tr>
             @endforeach
-            {{-- <tr class="lower-container__table-row">
-                <td class="lower-container__table-desc">2023/11/26</td>
-                <td class="lower-container__table-desc">46.5kg</td>
-                <td class="lower-container__table-desc">1200cal</td>
-                <td class="lower-container__table-desc">00:15</td>
-                <td class="lower-container__table-desc"><a href=""><img src="../img/pencil.svg" alt=""></a></td>
-            </tr> --}}
         </table>
     </div>
     <div class="lower-container__pagination">
@@ -76,43 +68,51 @@
     <div class="modal__inner">
         <div class="modal__content">
             <h2 class="modal-title">Weight Logを追加</h2>
-            <form class="modal__form" action="">
+            <form class="modal__form" action="/weight_logs/create" method="post">
+                @csrf
                 <div class="modal__form-group">
                     <label class="modal__form-label" for="date">日付<span>必須</span></label>
-                    <input class="modal__form-date" type="date" name="date">
+                    <input class="modal__form-date" type="date" name="date" value="{{ old('date', date('Y-m-d')) }}">
                     <ul class="modal__form-error">
-                        <li>日付を入力してください</li>
+                        @error('date')
+                        <li>{{ $message }}</li>
+                        @enderror
                     </ul>
                 </div>
                 <div class="modal__form-group">
                     <label class="modal__form-label" for="weight">体重<span>必須</span></label>
-                    <input class="modal__form-weight" type="text" name="weight"><span> kg</span>
+                    <input class="modal__form-weight" type="text" name="weight" value="{{ old('weight') }}"><span> kg</span>
                     <ul class="modal__form-error">
-                        <li>体重を入力してください</li>
-                        <li>４桁までの数字で入力してください</li>
-                        <li>小数点は１桁で入力してください</li>
+                        @error('weight')
+                        <li>{{ $message }}</li>
+                        @enderror
                     </ul>
                 </div>
                 <div class="modal__form-group">
                     <label class="modal__form-label" for="calories">摂取カロリー<span>必須</span></label>
-                    <input class="modal__form-calories" type="text" name="calories"><span> cal</span>
+                    <input class="modal__form-calories" type="text" name="calories" value="{{ old('calories') }}"><span> cal</span>
                     <ul class="modal__form-error">
-                        <li>摂取カロリ－を人力してください</li>
-                        <li>数字で入力してくたさい</li>
+                        @error('calories')
+                        <li>{{ $message }}</li>
+                        @enderror
                     </ul>
                 </div>
                 <div class="modal__form-group">
-                    <label class="modal__form-label" for="exercise-time">運動時間<span>必須</span></label>
-                    <input class="modal__form-exercise-time" type="text" name="exercise-time">
+                    <label class="modal__form-label" for="exercise_time">運動時間<span>必須</span></label>
+                    <input class="modal__form-exercise-time" type="time" name="exercise_time" value="{{ old('exercise_time', '00:00') }}">
                     <ul class="modal__form-error">
-                        <li>運動時間を入力してください</li>
+                        @error('exercise_time')
+                        <li>{{ $message }}</li>
+                        @enderror
                     </ul>
                 </div>
                 <div class="modal__form-group">
-                    <label class="modal__form-label" for="exercise-content">運動内容<span>必須</span></label>
-                    <textarea class="modal__form-exercise-content" name="exercise-content" placeholder="運動内容を追加"></textarea>
+                    <label class="modal__form-label" for="exercise_content">運動内容</label>
+                    <textarea class="modal__form-exercise-content" name="exercise_content" placeholder="運動内容を追加">{{ old('exercise_content') }}</textarea>
                     <ul class="modal__form-error">
-                        <li>１２０文字以内で入力してください</li>
+                        @error('exercise_content')
+                        <li>{{ $message }}</li>
+                        @enderror
                     </ul>
                 </div>
                 <div class="modal__form-group-btn">

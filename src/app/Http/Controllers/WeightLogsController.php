@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WeightLogRequest;
+use App\Http\Requests\WeightLogRequest2;
+use App\Http\Requests\WeightTargetRequest;
 use App\Models\User;
 use App\Models\WeightLogs;
+use App\Models\WeightTarget;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Auth;
 
@@ -17,14 +21,24 @@ class WeightLogsController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        // $weightLogs = User::find($userId)->weightLogs()->get();
-        // $weightLogs = User::find($userId)->weightLogs()->orderBy('date', 'desc')->get();
         $weightLogs = User::find($userId)->weightLogs()->orderBy('date', 'desc')->paginate(8);
 
         $maxDate = User::find($userId)->weightLogs()->max('date');
-        $recentWeight = User::find($userId)->weightLogs()->where('date', $maxDate)->first()->weight;
-        $targetWeight = User::find($userId)->weightTarget()->first()->target_weight;
-        $weightDiff = $recentWeight - $targetWeight;
+
+        if(null != ($targetWeight = User::find($userId)->weightTarget()->first())){
+            $targetWeight = $targetWeight->target_weight;
+            if(isset($maxDate)){
+                $recentWeight = User::find($userId)->weightLogs()->where('date', $maxDate)->first()->weight;
+                $weightDiff = $recentWeight - $targetWeight;
+            }else{
+                $recentWeight = '―';
+                $weightDiff = '―';
+            }
+        }else{
+            $targetWeight = '―';
+            $recentWeight = '―';
+            $weightDiff = '―';
+        }
 
         $weightInf = [
             'targetWeight' => $targetWeight,
@@ -37,30 +51,26 @@ class WeightLogsController extends Controller
 
     public function search(Request $request)
     {
-        // dd($request);
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
         $userId = Auth::id();
         $weightLogs = User::find($userId)->weightLogs();
-        // if(!empty($startDate)){
-        //     $weightLogs = $weightLogs->where('date', '>=', $startDate);
-        // }
-        // if(!empty($endDate)){
-        //     $weightLogs = $weightLogs->where('date', '<=', $endDate);
-        // }
         $weightLogs = $this->searchApply($request, $weightLogs);
         $weightLogs = $weightLogs->orderBy('date', 'desc')->paginate(8);
 
-        // dd(count($weightLogs->get()));
-        // dd($recentWeight = $weightLogs->first()->weight);
-        // dd($weightLogs->max('date'));
-        // $maxDate = User::find($userId)->weightLogs()->max('date');
         $maxDate = User::find($userId)->weightLogs();
         $maxDate = $this->searchApply($request, $maxDate)->max('date');
-        $recentWeight = User::find($userId)->weightLogs()->where('date', $maxDate)->first()->weight;
+
         $targetWeight = User::find($userId)->weightTarget()->first()->target_weight;
-        $weightDiff = $recentWeight - $targetWeight;
+
+        if(isset($maxDate)){
+            $recentWeight = User::find($userId)->weightLogs()->where('date', $maxDate)->first()->weight;
+            $weightDiff = $recentWeight - $targetWeight;
+        }else{
+            $recentWeight = '―';
+            $weightDiff = '―';
+        }
 
         $weightInf = [
             'targetWeight' => $targetWeight,
@@ -84,24 +94,23 @@ class WeightLogsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WeightLogRequest $request)
     {
-        //
+        WeightLogs::create([
+            'user_id' => Auth::id(),
+            'date' => $request->date,
+            'weight' => $request->weight,
+            'calories' => $request->calories,
+            'exercise_time' => $request->exercise_time,
+            'exercise_content' => $request->exercise_content
+        ]);
+
+        return redirect('/weight_logs');
     }
 
     /**
@@ -110,9 +119,8 @@ class WeightLogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
     }
 
     /**
@@ -121,9 +129,13 @@ class WeightLogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($weightLogId)
     {
-        //
+        $weightLog = WeightLogs::find($weightLogId);
+
+        $weightLog->exercise_time = substr($weightLog->exercise_time, 0, 5);
+
+        return view('edit', compact('weightLog'));
     }
 
     /**
@@ -133,9 +145,11 @@ class WeightLogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(WeightLogRequest2 $request, $weightLogId)
     {
-        //
+        unset($request['_token']);
+        $weightLog = WeightLogs::find($weightLogId)->update($request->all());
+        return redirect('/weight_logs');
     }
 
     /**
@@ -144,9 +158,28 @@ class WeightLogsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($weightLogId)
     {
-        //
+        WeightLogs::find($weightLogId)->delete();
+
+        return redirect('/weight_logs');
+    }
+
+    public function targetEdit()
+    {
+        $userId = Auth::id();
+        $weightTarget = WeightTarget::find($userId);
+
+        return view('edit2', compact('weightTarget'));
+    }
+
+    public function targetUpdate(WeightTargetRequest $request)
+    {
+        $userId = Auth::id();
+        WeightTarget::find($userId)->update(['target_weight' => $request->target_weight]);
+
+        return redirect('/weight_logs');
+
     }
 
     private function searchApply($request, $logs)

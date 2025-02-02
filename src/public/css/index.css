@@ -1,18 +1,15 @@
 .upper-container {
-    /* width: 75%; */
     margin: 30px 0 10px;
 }
 
 .upper-container__contents {
     display: flex;
-    /* margin: 10px 0; */
     background-color: #FFFFFF;
     border-radius: 5px;
 }
 
 .upper-container__content {
     flex-grow: 1;
-    /* padding: 15px 50px; */
     padding: 15px 7%;
 }
 
@@ -24,13 +21,11 @@
 
 .upper-container__content-value {
     display: inline-block;
-    /* margin-top: 20px; */
     padding: 5px;
     font-size: 24px;
 }
 
 .upper-container__content-unit {
-    /* padding: 5px; */
     font-size: 11px;
 }
 
@@ -46,8 +41,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 7%;
-    /* height: 30px; */
-
 }
 
 .lower-container__search-form {
@@ -57,17 +50,14 @@
 }
 
 .lower-container__search-form-date {
-    /* padding:5px; */
     border: 1px solid #E0DFDE;
     border-radius: 5px 10px;
     color: #4B4B4B;
     font-size: 16px;
-    /* font-size: 12px; */
-    /* padding: 5px 10px; */
     padding: 4px;
     position: relative;
     margin-right: 10px;
-    z-index: 100;
+    z-index: 20;
 }
 
 .lower-container__search-form-date:last-of-type {
@@ -84,7 +74,7 @@
     top: 9px;
     right: 2px;
     background-size: contain;
-    z-index: 10;
+    z-index: -10;
 }
 
 .lower-container__search-form-date::-webkit-calendar-picker-indicator {
@@ -93,17 +83,13 @@
 
 
 .lower-container__search-form-submit {
-    /* padding: 5px; */
     display: inline-block;
     border-radius: 5px;
     border: none;
     background-color: #919191;
     color: #FFFFFF;
-    /* font-size: 12px; */
-    /* padding: 5px 10px; */
     width: 80px;
     font-size: 16px;
-    /* box-sizing: border-box; */
     padding: 2px;
     margin-right: 10px;
     cursor: pointer;
@@ -113,17 +99,13 @@
     border-radius: 5px;
     text-decoration: none;
     border: 1px solid #919191;
-    /* padding: 5px 10px; */
-    /* width: 70px; */
     font-size: 16px;
-    /* box-sizing: border-box; */
     padding: 6px;
     width: 80px;
     text-align: center;
 }
 
 .lower-container__add {
-    /* display: block; */
     border-radius: 5px;
     text-decoration: none;
     border: none;
@@ -133,11 +115,6 @@
     padding: 7px;
     width: 100px;
     text-align: center;
-    /* padding: 5px 10px; */
-    /* box-sizing: border-box; */
-    /* height: 100%; */
-    /* height: 28px; */
-    /* line-height: 18px; */
 }
 
 .lower-container__search-result {
@@ -148,11 +125,10 @@
 .lower-container__table {
     margin: 0 auto;
     width: 86%;
-    /* font-size: 12px; */
     border-collapse: collapse;
 }
 
-.lower-container__table-row:hover {
+.lower-container__table-row:not(:first-of-type):hover {
     background-color: rgba(247, 247, 247, 1);
 }
 
@@ -173,7 +149,6 @@
 
 .lower-container__pagination {
     padding: 15px;
-    /* text-align: center; */
     display: flex;
     justify-content: center;;
 }
@@ -212,7 +187,7 @@
     visibility: hidden;
     opacity: 0;
     background-color: rgba(51, 51, 51, 0.5);
-    z-index: 1000;
+    z-index: 100;
 }
 
 .modal:target {
@@ -236,7 +211,6 @@
     left: 50%;
     width: min(50%, 450px);
     width: 50%;
-    /* width: 800px; */
     border: none;
     background-color: rgba(255, 255, 255, 1);
     transform: translate(-50%, -50%);
@@ -282,6 +256,21 @@
 
 .modal__form-date {
     width: calc(100% - 10px * 2);
+    position: relative;
+    background-color: transparent;
+}
+
+.modal__form-date::after {
+    content: '';
+    background-image: url('../img/down_arrow.svg');
+    width: 16px;
+    height: 8px;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+    right: 2px;
+    background-size: contain;
+    z-index: -1;
 }
 
 .modal__form-date::-webkit-calendar-picker-indicator {
@@ -303,6 +292,7 @@
 .modal__form-exercise-content {
     height: 100px;
     width: calc(100% - 10px * 2);
+    resize: none;
 }
 
 .modal__form-exercise-content::placeholder {
@@ -350,7 +340,6 @@
     color: rgba(255, 255, 255, 1);
     background-image: linear-gradient(to right, rgba(163, 166, 225, 1), rgba(255, 171, 217, 1));
     cursor: pointer;
-
 }
 
 

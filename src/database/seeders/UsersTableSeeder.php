@@ -17,7 +17,6 @@ class UsersTableSeeder extends Seeder
         $content = [
             'name' => 'test',
             'email' => 'test@test',
-            // 'password' => 'testtest'
             'password' => \Hash::make('testtest')
         ];
         DB::table('users')->insert($content);
