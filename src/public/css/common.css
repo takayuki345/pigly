@@ -73,6 +73,14 @@ body {
     top: 4px;
 }
 
+.header-menu__weight-set,
+.header-menu__weight-set:visited,
+.header-menu__weight-set:hover,
+.header-menu__weight-set:active,
+.header-menu__weight-set:link {
+    color: inherit;
+}
+
 .header-menu__logout {
     cursor: pointer;
 }

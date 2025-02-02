@@ -5,37 +5,40 @@
 @endsection
 
 @section('content')
+{{-- dd($weightInf['targetWeight']) --}}
 <div class="upper-container">
     <div class="upper-container__contents">
         <div class="upper-container__content">
             <span class="upper-container__content-title">目標体重</span>
-            <span class="upper-container__content-value">45.0</span>
+            <span class="upper-container__content-value">{{ empty($weightInf['targetWeight']) ? '' : $weightInf['targetWeight'] }}</span>
             <span class="upper-container__content-unit">kg</span>
         </div>
         <div class="upper-container__content">
             <span class="upper-container__content-title">目標まで</span>
-            <span class="upper-container__content-value">-1.5</span>
+            <span class="upper-container__content-value">{{ empty($weightInf['weightDiff']) ? '' : $weightInf['weightDiff'] }}</span>
             <span class="upper-container__content-unit">kg</span>
         </div>
         <div class="upper-container__content">
             <span class="upper-container__content-title">最新体重</span>
-            <span class="upper-container__content-value">46.0</span>
+            <span class="upper-container__content-value">{{ empty($weightInf['recentWeight']) ? '' : $weightInf['recentWeight'] }}</span>
             <span class="upper-container__content-unit">kg</span>
         </div>
     </div>
 </div>
 <div class="lower-container">
     <div class="lower-container__search-and-add">
-        <form class="lower-container__search-form" action="">
-            <input class="lower-container__search-form-date" type="date">
+        <form class="lower-container__search-form" action="/weight_logs/search" method="get">
+            <input class="lower-container__search-form-date" type="date" name="start_date" value="{{ empty($request->start_date) ? '' : $request->start_date }}">
             <span> ～ </span>
-            <input class="lower-container__search-form-date" type="date">
+            <input class="lower-container__search-form-date" type="date" name="end_date" value="{{ empty($request->end_date) ? '' : $request->end_date }}">
             <button class="lower-container__search-form-submit" type="submit">検索</button>
-            <a class="lower-container__search-form-reset" href="">リセット</a>
+            @if(!empty($result))
+            <a class="lower-container__search-form-reset" href="/weight_logs">リセット</a>
+            @endif
         </form>
         <a class="lower-container__add" href="#add">データ追加</a>
     </div>
-    <div class="lower-container__search-result">2023年11月21日～2023年11月25日の検索結果　5件</div>
+    <div class="lower-container__search-result">{{ !empty($result) ? $result : '' }}</div>
     <div class="lower-container__table-wrapper">
         <table class="lower-container__table">
             <tr class="lower-container__table-row">
@@ -45,73 +48,26 @@
                 <th class="lower-container__table-header">運動時間</th>
                 <th class="lower-container__table-header"></th>
             </tr>
+            @foreach($weightLogs as $weightLog)
             <tr class="lower-container__table-row">
+                <td class="lower-container__table-desc">{{ $weightLog->date }}</td>
+                <td class="lower-container__table-desc">{{ $weightLog->weight }}kg</td>
+                <td class="lower-container__table-desc">{{ $weightLog->calories }}cal</td>
+                <td class="lower-container__table-desc">{{ substr($weightLog->exercise_time, 0, 5) }}</td>
+                <td class="lower-container__table-desc"><a href="/weight_logs/{{ $weightLog->id }}"><img src="../img/pencil.svg" alt=""></a></td>
+            </tr>
+            @endforeach
+            {{-- <tr class="lower-container__table-row">
                 <td class="lower-container__table-desc">2023/11/26</td>
                 <td class="lower-container__table-desc">46.5kg</td>
                 <td class="lower-container__table-desc">1200cal</td>
                 <td class="lower-container__table-desc">00:15</td>
                 <td class="lower-container__table-desc"><a href=""><img src="../img/pencil.svg" alt=""></a></td>
-            </tr>
-            <tr class="lower-container__table-row">
-                <td class="lower-container__table-desc">2023/11/26</td>
-                <td class="lower-container__table-desc">46.5kg</td>
-                <td class="lower-container__table-desc">1200cal</td>
-                <td class="lower-container__table-desc">00:15</td>
-                <td class="lower-container__table-desc"><a href=""><img src="../img/pencil.svg" alt=""></a></td>
-            </tr>
-            <tr class="lower-container__table-row">
-                <td class="lower-container__table-desc">2023/11/26</td>
-                <td class="lower-container__table-desc">46.5kg</td>
-                <td class="lower-container__table-desc">1200cal</td>
-                <td class="lower-container__table-desc">00:15</td>
-                <td class="lower-container__table-desc"><a href=""><img src="../img/pencil.svg" alt=""></a></td>
-            </tr>
-            <tr class="lower-container__table-row">
-                <td class="lower-container__table-desc">2023/11/26</td>
-                <td class="lower-container__table-desc">46.5kg</td>
-                <td class="lower-container__table-desc">1200cal</td>
-                <td class="lower-container__table-desc">00:15</td>
-                <td class="lower-container__table-desc"><a href=""><img src="../img/pencil.svg" alt=""></a></td>
-            </tr>
-            <tr class="lower-container__table-row">
-                <td class="lower-container__table-desc">2023/11/26</td>
-                <td class="lower-container__table-desc">46.5kg</td>
-                <td class="lower-container__table-desc">1200cal</td>
-                <td class="lower-container__table-desc">00:15</td>
-                <td class="lower-container__table-desc"><a href=""><img src="../img/pencil.svg" alt=""></a></td>
-            </tr>
-            <tr class="lower-container__table-row">
-                <td class="lower-container__table-desc">2023/11/26</td>
-                <td class="lower-container__table-desc">46.5kg</td>
-                <td class="lower-container__table-desc">1200cal</td>
-                <td class="lower-container__table-desc">00:15</td>
-                <td class="lower-container__table-desc"><a href=""><img src="../img/pencil.svg" alt=""></a></td>
-            </tr>
-            <tr class="lower-container__table-row">
-                <td class="lower-container__table-desc">2023/11/26</td>
-                <td class="lower-container__table-desc">46.5kg</td>
-                <td class="lower-container__table-desc">1200cal</td>
-                <td class="lower-container__table-desc">00:15</td>
-                <td class="lower-container__table-desc"><a href=""><img src="../img/pencil.svg" alt=""></a></td>
-            </tr>
-            <tr class="lower-container__table-row">
-                <td class="lower-container__table-desc">2023/11/26</td>
-                <td class="lower-container__table-desc">46.5kg</td>
-                <td class="lower-container__table-desc">1200cal</td>
-                <td class="lower-container__table-desc">00:15</td>
-                <td class="lower-container__table-desc"><a href=""><img src="../img/pencil.svg" alt=""></a></td>
-            </tr>
-            <tr class="lower-container__table-row">
-                <td class="lower-container__table-desc">2023/11/26</td>
-                <td class="lower-container__table-desc">46.5kg</td>
-                <td class="lower-container__table-desc">1200cal</td>
-                <td class="lower-container__table-desc">00:15</td>
-                <td class="lower-container__table-desc"><a href=""><img src="../img/pencil.svg" alt=""></a></td>
-            </tr>
+            </tr> --}}
         </table>
     </div>
     <div class="lower-container__pagination">
-        <div>（ページネーション）</div>
+        {{ $weightLogs->links('vendor.pagination.custom') }}
     </div>
 </div>
 

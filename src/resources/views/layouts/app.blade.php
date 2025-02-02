@@ -18,8 +18,9 @@
             </li>
             <li class="header-list">
                 <div class="header-menus">
-                    <a class="header-menu__weight-set" href="">目標体重設定</a>
-                    <form class="header-menu__logout-form" action="">
+                    <a class="header-menu__weight-set" href="/weight_logs/goal_setting">目標体重設定</a>
+                    <form class="header-menu__logout-form" action="/logout" method="post">
+                        @csrf
                         <button class="header-menu__logout">ログアウト</button>
                     </form>
                 </div>

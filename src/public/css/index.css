@@ -152,6 +152,10 @@
     border-collapse: collapse;
 }
 
+.lower-container__table-row:hover {
+    background-color: rgba(247, 247, 247, 1);
+}
+
 .lower-container__table-row:not(:nth-of-type(1), :nth-of-type(2)) {
     border-top: 1px solid #F7F7F7;
 }
@@ -169,7 +173,34 @@
 
 .lower-container__pagination {
     padding: 15px;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;;
+}
+
+.pagination {
+    display: flex;
+}
+
+.pagination > li {
+    width: 30px;
+    height: 30px;
     text-align: center;
+    line-height: 30px;
+}
+
+.pagination > li:not(:last-of-type) {
+    margin-right: 5px;
+}
+
+.pagination > .active {
+    background-image: linear-gradient(to right, rgba(163, 166, 225, 1), rgba(255, 171, 217, 1));
+    border-radius: 5px;
+    color: white;
+}
+
+.pagination a {
+    text-decoration: none;
 }
 
 .modal {
